@@ -1,14 +1,24 @@
+<!-- Creates instances of it self for every Game -->
+{% for game in games %}
 <div class="col-md-4 col-lg-3 col-xl-2 p-2">
   <div class="card text-bg-dark border-secondary h-100">
-    <img style="background-color: blue;" height="150" src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Firefox_logo%2C_2019.svg" class="card-img-top p-3 rounded" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">Firefox Gaming Browser</h5>
-      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
 
+    <!-- Center and shrink image, set background color -->
+    <img style="background-color: {{ game.color }};" height="150" src={{ game.icon }} class="card-img-top p-3 rounded" alt="...">
+
+    <!-- Insert description and name into the card -->
+    <div class="card-body">
+      <h5 class="card-title">{{ game.name }}</h5>
+      <p class="card-text">{{ game.description }}</p>
     </div>
+
+    <!-- Footer of Card, With play and download buttens, -->
+    <!-- TODO: Conditionally gray out/hide Buttons -->
     <div class="card-footer border-secondary container">
       <a href="#" class="btn btn-primary col-12">Download</a>
       <a href="#" class="btn btn-success col-12">Play</a>
     </div>
+
   </div>
 </div>
+{% endfor %}
