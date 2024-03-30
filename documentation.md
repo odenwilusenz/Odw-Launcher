@@ -4,7 +4,7 @@ welcome to the documentation, the api is hosted on the 5000 port of the host dev
 
 ## /getgame?game=[gamename]
 Function: GET
-This action has 1 parameter its "game" you need to set this to the game name you got from /gamelist or /localgameslist it will get the game from the ODW server
+This action has 1 parameter its "game" you need to set this to the game name you got from /gamelist or /localgameslist it will get the game from the ODW server it will download the game associated to that name
 
 
 ## /gamelist
@@ -20,3 +20,12 @@ This action gets all availible games and their config in a json format like
   <li>modifyFiles: unused will be added later</li>
   
 </ul>
+
+## /localgameslist
+Function: GET
+this does the same as /gamelist but local so you could check which games are installed
+
+## /startgame?game=[gamename]
+Function: GET
+This action has 1 parameter its "game" you need to set this to the game name you got from /gamelist or /localgameslist it will get the game from the ODW server it will run the exe file linked in runfile
+
