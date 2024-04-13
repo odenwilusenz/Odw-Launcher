@@ -5,8 +5,8 @@ import json
 import random
 from distutils.dir_util import copy_tree
 
-rootDir = "C:\\Users\myros\Desktop"
-# rootDir = "\\\\ODW-Master-01\public\odwLauncher_games"
+# rootDir = "C:\\Users\myros\Desktop"
+rootDir = "\\\\ODW-Master-01\public\odwLauncher_games"
 app = Flask(__name__)
 
 try:
