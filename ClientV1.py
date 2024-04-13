@@ -4,6 +4,19 @@ import subprocess
 import json
 import random
 from distutils.dir_util import copy_tree
+from ftplib import FTP
+
+
+def ftpGetItems(folder):
+    ftp = FTP("192.168.42.10")  # Connect to FTP server
+    ftp.login("anyuser", "Resuyna2")
+    ftp.cwd(str(folder))
+    directory_contents = ftp.nlst()
+    ftp.quit()
+    return directory_contents
+
+items = ftpGetItems("Launcher/Pictures")
+print(items)
 
 # rootDir = "\\\\ODW-Master-01\public\odwLauncher_games"
 
@@ -29,6 +42,9 @@ try:
     os.mkdir(os.path.expanduser('~') + "\\odwlauncher\\Pictures")
 except:
     pass
+
+
+
 
 
 @app.before_request
