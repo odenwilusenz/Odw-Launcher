@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>ODW-Launcher</title>
+</head>
+
+<body class="text-bg-dark">
+<div class="container-fluid p-4">
+    <div class="row">
+        <div class="col-4">
+            <h1>ODW-Launcher</h1>
+            <label for="gamerName">Username: &nbsp;</label><input class="m-3" type="text" id="gamerName" name="gamerName" onchange="changeUserName()">
+        </div>
+        <div class="col">
+            <p id="funnyText">Loading ...</p>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-primary" onclick="replaceFunnyText()">NEXT!</button>
+        </div>
+    </div>
+</div>
+
+<!-- Create a Responsive Container -->
+<div class="mx-2 pc-2" id="gamesList" style="display: flex; flex-wrap: wrap;">
+
+</div>
+</body>
+<script>
+
+    let completeGameList = null;
+
+    document.addEventListener("DOMContentLoaded", function (event) {
+        async function getGameList() {
+            return $.ajax({
+                url: '/gameList',
+                type: 'get',
+                dataType: 'json',
+            })
+                .then(function (response) {
+                    logData(response);
+                });
+        }
+
+        function logData(data) {
+            let sortedArray = data.sort(function (a, b) {
+                return parseFloat(b.rating) - parseFloat(a.rating);
+            });
+
+            const parent = document.getElementById("gamesList")
+
+            for (const element of sortedArray) {
+                let nextGame = document.createElement("article");
+                nextGame.className = "m-2";
+                let stars = Math.min(Math.max(Math.round(element.rating / 2), 0), 5);
+                let starString = '&starf;'.repeat(stars) + '&star;'.repeat(5 - stars);
+                let tags = "";
+                element.tags.forEach(function (itag) {
+                    let newElement = document.createElement('div');
+                    newElement.textContent = itag;
+                    newElement.style.display = 'inline-block';
+                    newElement.style.color = "lightblue";
+                    newElement.style.fontStyle = 'italic';
+                    tags += newElement.outerHTML + ' &nbsp; ';
+                });
+                nextGame.innerHTML = `
+    <div class="card text-bg-dark border-secondary h-100" style="width:16rem;">
+        <img style="background-color: ${element.color};" src="${element.icon}" class="card-img-top p-3 rounded" alt="...">
+        <div class="card-body">
+            <h5 class="card-title" style="white-space: nowrap;">${element.name}</h5>
+            <div class="col" style="color:yellow; font-size: 20px; position: relative">${starString} <div class="col" style="color:red; font-size: 20px; position: absolute; top: 0; right: 0">${element.rating}/10</div></div>
+            <div class="col m-1 px-1" style="color:white; background-color: black; font-size: 14px; position: absolute; top: 3px; left: 3px; border-radius: 5px;">Max Players: ${element.maxPlayers}</div>
+            ${tags}
+            <p style="font-size: 12px" class="card-text">${element.description}</p>
+        </div>
+        <div class="card-footer border-secondary container" id="linkToPythonFor${element.name.replaceAll(" ", "_")}">
+        </div>
+    </div>
+`;
+                parent.appendChild(nextGame);
+                setButtons(element.name)
+            }
+        }
+
+
+        getGameList();
+        setInterval(function () {
+            replaceFunnyText();
+        }, 30000);
+        document.getElementById("gamerName").value = localStorage.getItem("gamerName");
+        replaceFunnyText()
+
+    });
+
+    function changeUserName() {
+        let gamerName = document.getElementById("gamerName").value
+        localStorage.setItem("gamerName", gamerName);
+    }
+
+    function setButtons(name) {
+        getGameIsLocal(name);
+        setInterval(getGameIsLocal, 10000, name)
+    }
+
+    async function getGameIsLocal(gameElement) {
+        return $.ajax({
+            url: `/gameIsLocal`, /*`/gameIsLocal/${gameElement}`,*/
+            type: 'get',
+            dataType: 'string',
+        })
+            .always(function (response) {
+                const text = "linkToPythonFor" + gameElement.replaceAll(" ", "_")
+                const element = document.getElementById(text)
+                if (response.responseText === "true") {
+                    element.innerHTML = '<a href="#" class="btn btn-success col-12">Play</a>'
+                } else {
+                    element.innerHTML = '<a href="#" class="btn btn-primary col-12">Download</a>'
+                }
+            });
+    }
+
+    function replaceFunnyText() {
+        let textArray = ["Neu mit 50% weniger Trojaner", "Ubuntu ist das Windows der Linux'e", "Nachts isch es meischt d&uuml;nkler als dusse", "All 60 Sekunde vergaht in Afrika e Minute",
+            "Wenn das Leben dir Zitronen gibt, frag nach Salz und Tequilla!", "Ich bin nid fuul, ich bin im Energiesparmodus.", "Putz mol din Tisch, und bring die ganze Dose weg!",
+            "Ich chan mich nid mit em Master verbinde", "TBD", "Jan, do chemed no mee Spr&uuml;ch ane", "Please help me, im under the water", "Never Gonna Give You Up", "Wer h&auml;t das programmiert?",
+            "The Game", "%Name% slaps Myros around a bit with a large trout.", "Wer das liest ist dumm!", "Alli hassed Stadt-Z&uuml;rcher, au Stadt-Z&uuml;rcher!", "Dini Mueter", "De Papst isch es Xylophon",
+            "Install Gentoo!", "Ich bin VegArcher", "Kann der Windows?", "Mues das Windows?", "Entdecking das Neuland since 2024", "Welthunger und &Uuml;berbev&ouml;lkerig chammer mit de gliiche Strategie l&ouml;se...",
+            "%Name% was not the imposter!", "#funnyText", "The beamer brokes down!", "Wololo!", "Hey DJ, mach mal gueti Musig!", "Noch einmal schlafen, dann ist Morgen", "de %Name% stinkt!", "%Name% isch es Xylophon",
+            "<img height='100px'src='https://i.pinimg.com/originals/0c/b1/ee/0cb1eeab893355f3de939866ad8feb4d.jpg'>", "<img height='100px' src='http://cdn.ebaumsworld.com/mediaFiles/picture/604025/85712110.jpg'>",
+            "<img height='100px'src='https://imgs.xkcd.com/comics/threesome.png'>", "<img height='100px' src='https://imgs.xkcd.com/comics/solar_spectrum.png'>", "<img height='100px' src='https://www.driftdigital.com.br/wp-content/uploads/2024/03/cyber.jpg'>",
+            "<img height='100px'src='https://c.tenor.com/Wha6DadLpJYAAAAC/futurama-hypnotoad.gif'>", "<img height='100px'src='https://media1.tenor.com/m/mdthd1JgXFoAAAAC/thomas-train.gif'>",
+            "<img height='100px'src='https://media1.tenor.com/m/foahjJ5K8rEAAAAC/cursed-peach.gif'>", "<img height='100px'src='https://media1.tenor.com/m/8MiIH9TBphIAAAAd/goat-standing.gif'>",
+            "<img height='100px'src='https://media1.tenor.com/m/aRWqLSGCis0AAAAC/capybara.gif'>", "<img height='100px'src='https://media1.tenor.com/m/8vZh8lHIzVgAAAAd/r%C3%BCtty-musik.gif'>",
+            "<img height='100px'src='https://media1.tenor.com/m/SgJwVyqcMksAAAAd/full.gif'>", "<img height='100px'src='https://media1.tenor.com/m/8MiIH9TBphIAAAAd/goat-standing.gif'>",
+            "<img height='100px'src='https://media1.tenor.com/m/WI_dKIOlK0YAAAAC/cursed-troll-face-troll-face.gif'>", "<img height='100px'src='https://media1.tenor.com/m/8iEpg_uVrZIAAAAd/trollge-uncanny.gif'>",
+            "<img height='100px'src='https://media1.tenor.com/m/on61eHxj6OUAAAAC/trollge-troll-smile.gif'>", "<img height='100px'src='https://media1.tenor.com/m/YTQnV_7GLI0AAAAd/trollge-gif-phonktrollge.gif'>",
+            "<img height='100px'src='https://static.wikia.nocookie.net/cookieclicker/images/5/50/GoldCookie.png/revision/latest?cb=20230401175923'>", "<img height='100px'src='https://static.wikia.nocookie.net/cookieclicker/images/d/d8/GrandmaMad.png'>",
+            "<img height='100px'src='https://media.tenor.com/Jx-BYYEi4bYAAAAi/among-us-twerk.gif'>", "<img height='100px'src='https://media1.tenor.com/m/Gygs36Lc_2IAAAAC/chicken-cursed.gif'>", "<img height='100px'src='https://www.reddit.com/r/gifs/comments/5h76oj/all_hail_the_hypnotoad/'>",
+            "<img height='100px'src='https://pranx.com/fake-virus/pay-with-kidneys.png'>", "<a href='https://pranx.com/maze/'>Get Lv.5</a>", "<a href='https://pranx.com/bios/'>Bios</a>",
+            "Das do isch Legacycode", "Hets no Mate", " This website is using cookies to spy on the visitors secrets and personal life.", "Hets no Mate",
+            "\"CYBER CYBER CYBER\" - Werner", "There is really no hard limit to how long these names can be and to be quite honest I'm rather curious to see how far we can go. Adolphus W. Green (1844–1917) started as the Principal of the Groton School in 1864. By 1865, he became second assistant librarian at the New York Mercantile Library; from 1867 to 1869, he was promoted to full librarian. From 1869 to 1873, he worked for Evarts, Southmayd & Choate, a law firm co-founded by William M. Evarts, Charles Ferdinand Southmayd and Joseph Hodges Choate. He was admitted to the New York State Bar Association in 1873. Anyway, how's your day been? ", "💩💩💩💩💩💩💩💩💩💩💩💩",
+            "Pwnis xD", "Mues das sii?", "De Sevi isch kapput, er isch grad go schloofe gange", "Wer hat mein Ladekabel gestohlen?", "Ich bin de Balkon --Schnirz", "Hat jemand mein Ladekabel gesehen?", "Ich habe gerade mein Passwort vergessen...",
+            "Lass uns das mal mit dem Feuerl&ouml;scher versuchen...", "Ich han e Idee! Wie wärs miteme Elektroshocker?", " mit Rohlingen isses doch wie mit Gummis: wennst welche brauchst, haste keine mehr, weil du deine letzten für irgend nen sinnlosen scheiss verschwendet hast...", "Ich verstehe die Jugend von heutzutage nicht mehr...Naja, mein Türkisch ist auch nicht grade das beste.",
+            "Ich betrink mich einfach mit Tee, dann hab ich am Ende 2,5 Kamille xD", "Kennst du das Gefühl wenn du in einen Raum gegangen bist aber in genau der Sekunde vergisst warum du in den Raum gegangen bist und gehst wieder raus? Das	ist der Sims Spieler der dich kontrolliert und grade die Aktion unterbrochen hat!",
+            "Vorurteile sind so sinnvoll wie Fundbüros in Polen", "wird das jetzt sone mein penis ist länger diskussion? -> Ich hab ne kamera und ein lineal hier!", "Warum haben alle gutausehenden Mädels den Nachnamen JPG.", "alter,du nerd.....geh mal nach google streetview und guck wie dein haus von draussen aussieht....",
+            "ruum mol din platz uf %Name% gseet jo schrecklich uus", "alter, handyspiele sind solche zeitfresser...ich komm kaum noch an die xbox!", "lol, geschter simmer vorem odw am rauche gsi (3 nachts), polizeiauto chunt wege lärm oder so, polizisten stiiged us und fröged noch uuswiis, und der Severin so: tschuldigung, dörfed sie da einfach so parken? xDD",
+            "dann hörte ich meine mum an der tür und ich bekam richtig panik, aber zum glück schaffte ich es mit alt+tab zum porno und zog meine boxershorts aus ehe sie sehen konnte, dass ich auf der microsoft website war", "alles unter 14 schützt das gesetzt alles über 40 die natur , dazwischen ist zum abschuss freigegeben", "Das Online-Wörterbuch von Pons kann zwar kein Finnisch übersetzen aber dafür Elbisch. Man muss ja Prioritäten setzen!",
+            "Ich muss weg. Da isn typ neben mir, der mir beim tippen zusieht, was langsam anfängt zu nerven. Ja typ neben mir, ich mein dich.", "Als ich jung war hieß das HappyMeal noch Reichsjugendbeutel!", "Ich habe gerade Buchstabennudeln auf meine Tastatur geklebt. Ich bin jetzt also Erfinder der Pastatur :)",
+            "alles was mir gefällt kostet entweder Zu viel oder schreibt mir Bei whatsapp nicht zurück :(", "Ich leide grade gleichzeitig an Gedächtnisverlust und einem Deja Vu. Ich habe das gefühl, dass ich das, was mir grad nicht einfällt, schonmal vergessen habe...",
+            "100 fun continues", "102 processing the joke",
+            "200 fun ok",
+            "301 fun is over there",
+            "403 fun not allowed",
+            "404 funny text not found",
+            "418 I am a <img height='100px'src='https://bribes.org/perl/ateapot.gif'>",
+
+        ]
+        let el = document.getElementById("funnyText")
+        let elName = document.getElementById("gamerName").value
+        if (elName == "") {
+            elName = "dini Mueter"
+        }
+        let text = textArray[Math.floor(Math.random() * textArray.length)];
+        text = text.replace("%Name%", elName)
+        el.innerHTML = text
+    }
+
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<style>
+
+</style>

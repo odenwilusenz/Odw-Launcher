@@ -1,24 +1,24 @@
-from flask import Flask, jsonify, request,send_file,abort
+from flask import Flask, jsonify, request, send_file, abort, send_from_directory
 import os
 import subprocess
 import json
+import random
 from distutils.dir_util import copy_tree
 
-rootdir = "\\\\ODW-Master-01\public\odwLauncher_games"
-
-
+rootDir = "C:\\Users\myros\Desktop"
+# rootDir = "\\\\ODW-Master-01\public\odwLauncher_games"
 app = Flask(__name__)
-
-
 
 try:
     os.mkdir(os.path.expanduser('~') + "\\odwlauncher")  # Create tmp directory if
-except: pass
+except:
+    pass
 homedir = os.path.expanduser('~') + "\\odwlauncher"
 
 try:
     os.mkdir(os.path.expanduser('~') + "\\odwlauncher\\games")
-except: pass
+except:
+    pass
 
 
 @app.before_request
@@ -27,31 +27,53 @@ def limit_remote_addr():
         app.abort(403)  # Forbidden
 
 
+@app.route('/', methods=['GET'])
+def index():
+    html_file = open("index.html", "r")
+    return html_file.read()
 
 
-@app.route('/getgame', methods = ['GET'])
+@app.route('/favicon.ico')  # TODO fix
+def favicon():
+    print(os.path.join(app.root_path, 'favicon.ico'))
+    return send_from_directory(os.path.join(app.root_path, ''), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+
+# @app.route('/gameIsLocal/<gameName>', methods=['GET'])
+# def isGameLocal(gameName):
+#    return random.choice([True, False])
+
+
+@app.route('/gameIsLocal', methods=['GET'])
+def isGameLocal():
+    rbool = random.choice([True, False])
+    if rbool:
+        return f"true"
+    return f"false"
+
+
+@app.route('/getGame', methods=['GET'])
 def get_game():
-    gamename = request.args.get('game')
-    print(f"Downloading Game with the name {gamename}")
-    for subdir, dirs, files in os.walk(rootdir):
+    gameName = request.args.get('game')
+    print(f"Downloading Game with the name {gameName}")
+    for subdir, dirs, files in os.walk(rootDir):
         for file in files:
             if file == "odw_config.json":
                 f = open(os.path.join(subdir, file))
                 data = json.load(f)
                 print(data["name"])
                 print(subdir)
-                if  data["name"] == gamename:
-                    copy_tree(subdir, os.path.expanduser('~') + f"\\odwlauncher\\games\\{gamename}")
-                    return(f"downloading game at {subdir}")
-                    
-                
-                f.close
-    
+                if data["name"] == gameName:
+                    copy_tree(subdir, os.path.expanduser('~') + f"\\odwlauncher\\games\\{gameName}")
+                    return f"downloading game at {subdir}"
 
-@app.route('/startgame', methods = ['GET'])
+                f.close
+
+
+@app.route('/startGame', methods=['GET'])
 def start_game():
-    gamename = request.args.get('game')
-    print(f"Playing Game with the name {gamename}")
+    gameName = request.args.get('game')
+    print(f"Playing Game with the name {gameName}")
     for subdir, dirs, files in os.walk(homedir + "\\games"):
         for file in files:
             if file == "odw_config.json":
@@ -59,39 +81,27 @@ def start_game():
                 data = json.load(f)
                 print(data["runfile"])
                 print(subdir)
-                if  data["name"] == gamename:
+                if data["name"] == gameName:
                     print(subdir + "\\" + data["runfile"])
                     try:
                         subprocess.run(subdir + "\\" + data["runfile"], check=True)
                     except subprocess.CalledProcessError as e:
-                        return(f"Error Running Game {e}")
-                    return(f"running game at {subdir}")
+                        return f"Error Running Game {e}"
+                    return f"running game at {subdir}"
                     f.close
-                
-                    
-        
-    
-    
 
 
-
-@app.route('/gamelist', methods = ['GET'])
+@app.route('/gameList', methods=['GET'])
 def list_games():
-    listofgames = []
-    for subdir, dirs, files in os.walk(rootdir):
+    listOfGames = []
+    for subdir, dirs, files in os.walk(rootDir):
         for file in files:
             if file == "odw_config.json":
                 f = open(os.path.join(subdir, file))
                 data = json.load(f)
-                listofgames += [data]
+                listOfGames += [data]
                 f.close
-    return(listofgames)
-                    
-                
-    
-
-
-        
+    return (listOfGames)
 
 
 app.run()
