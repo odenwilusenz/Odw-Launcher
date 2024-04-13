@@ -5,7 +5,7 @@ import json
 import random
 from distutils.dir_util import copy_tree
 
-rootDir = "C:\\Users\myros\Desktop"
+# rootDir = "C:\\Users\myros\Desktop"
 # rootDir = "\\\\ODW-Master-01\public\odwLauncher_games"
 app = Flask(__name__)
 
@@ -16,7 +16,17 @@ except:
 homedir = os.path.expanduser('~') + "\\odwlauncher"
 
 try:
-    os.mkdir(os.path.expanduser('~') + "\\odwlauncher\\games")
+    os.mkdir(os.path.expanduser('~') + "\\odwlauncher\\Games")
+except:
+    pass
+
+try:
+    os.mkdir(os.path.expanduser('~') + "\\odwlauncher\\Memes")
+except:
+    pass
+
+try:
+    os.mkdir(os.path.expanduser('~') + "\\odwlauncher\\Pictures")
 except:
     pass
 
@@ -24,7 +34,7 @@ except:
 @app.before_request
 def limit_remote_addr():
     if request.remote_addr != '127.0.0.1':
-        app.abort(403)  # Forbidden
+        return("Not Allowed", 401)  # Forbidden
 
 
 @app.route('/', methods=['GET'])
