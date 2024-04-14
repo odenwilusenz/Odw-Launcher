@@ -7,7 +7,7 @@ from distutils.dir_util import copy_tree
 from ftplib import FTP
 
 
-def ftpGetItems(folder):
+def ftpGetItemsInFolder(folder):
     ftp = FTP("192.168.42.10")  # Connect to FTP server
     ftp.login("anyuser", "Resuyna2")
     ftp.cwd(str(folder))
@@ -15,7 +15,24 @@ def ftpGetItems(folder):
     ftp.quit()
     return directory_contents
 
-items = ftpGetItems("Launcher/Pictures")
+def ftpGetFileContent(folder, file):
+    ftp = FTP("192.168.42.10")  # Connect to FTP server
+    ftp.login("anyuser", "Resuyna2")
+    ftp.cwd(str(folder))
+    file_content = ftp.retrbinary(f'RETR {file}')
+    ftp.quit()
+
+    return file_content 
+
+def LocalGetItemsInFolder(folder):
+    ftp = FTP("192.168.42.10")  # Connect to FTP server
+    ftp.login("anyuser", "Resuyna2")
+    ftp.cwd(str(folder))
+    directory_contents = ftp.nlst()
+    ftp.quit()
+    return directory_contents
+
+items = ftpGetItemsInFolder("Launcher/Pictures")
 print(items)
 
 # rootDir = "\\\\ODW-Master-01\public\odwLauncher_games"

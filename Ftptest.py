@@ -56,6 +56,6 @@ def print_line(line):
 
 
 with open('test.txt', 'rb') as fp:
-    ftp.retrlines('RETR test.txt', callback=print_line)
+    ftp.retrlines('RETR test.txt', callback=print)
 
 ftp.quit()
