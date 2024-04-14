@@ -10,7 +10,8 @@
     <div class="row">
         <div class="col-4">
             <h1>ODW-Launcher</h1>
-            <label for="gamerName">Username: &nbsp;</label><input class="m-3" type="text" id="gamerName" name="gamerName" onchange="changeUserName()">
+            <label for="gamerName">Username: &nbsp;</label><input class="m-3" type="text" id="gamerName"
+                                                                  name="gamerName" onchange="changeUserName()">
         </div>
         <div class="col">
             <p id="funnyText">Loading ...</p>
@@ -120,12 +121,9 @@
     }
 
     function replaceFunnyText() {
-        let textArray = ["Neu mit 50% weniger Trojaner", "Ubuntu ist das Windows der Linux'e", "Nachts isch es meischt d&uuml;nkler als dusse", "All 60 Sekunde vergaht in Afrika e Minute",
-            "Wenn das Leben dir Zitronen gibt, frag nach Salz und Tequilla!", "Ich bin nid fuul, ich bin im Energiesparmodus.", "Putz mol din Tisch, und bring die ganze Dose weg!",
-            "Ich chan mich nid mit em Master verbinde", "TBD", "Jan, do chemed no mee Spr&uuml;ch ane", "Please help me, im under the water", "Never Gonna Give You Up", "Wer h&auml;t das programmiert?",
-            "The Game", "%Name% slaps Myros around a bit with a large trout.", "Wer das liest ist dumm!", "Alli hassed Stadt-Z&uuml;rcher, au Stadt-Z&uuml;rcher!", "Dini Mueter", "De Papst isch es Xylophon",
-            "Install Gentoo!", "Ich bin VegArcher", "Kann der Windows?", "Mues das Windows?", "Entdecking das Neuland since 2024", "Welthunger und &Uuml;berbev&ouml;lkerig chammer mit de gliiche Strategie l&ouml;se...",
-            "%Name% was not the imposter!", "#funnyText", "The beamer brokes down!", "Wololo!", "Hey DJ, mach mal gueti Musig!", "Noch einmal schlafen, dann ist Morgen", "de %Name% stinkt!", "%Name% isch es Xylophon",
+        let textArray = ["Neu mit 50% weniger Trojaner", "Ubuntu ist das Windows der Linux'e", "Nachts isch es meischt d&uuml;nkler als dusse", "All 60 Sekunde vergaht in Afrika e Minute", "Wenn das Leben dir Zitronen gibt, frag nach Salz und Tequilla!", "Ich bin nid fuul, ich bin im Energiesparmodus.", "Putz mol din Tisch, und bring die ganze Dose weg!",
+            "Ich chan mich nid mit em Master verbinde", "TBD", "Jan, do chemed no mee Spr&uuml;ch ane", "Please help me, im under the water", "Never Gonna Give You Up", "Wer h&auml;t das programmiert?", "The Game", "%Name% slaps Myros around a bit with a large trout.", "Wer das liest ist dumm!", "Alli hassed Stadt-Z&uuml;rcher, au Stadt-Z&uuml;rcher!", "Dini Mueter", "De Papst isch es Xylophon",
+            "Install Gentoo!", "Ich bin VegArcher", "Kann der Windows?", "Mues das Windows?", "Entdecking das Neuland since 2024", "Welthunger und &Uuml;berbev&ouml;lkerig chammer mit de gliiche Strategie l&ouml;se...", "%Name% was not the imposter!", "#funnyText", "The beamer brokes down!", "Wololo!", "Hey DJ, mach mal gueti Musig!", "Noch einmal schlafen, dann ist Morgen", "de %Name% stinkt!", "%Name% isch es Xylophon",
             "<img height='100px'src='https://i.pinimg.com/originals/0c/b1/ee/0cb1eeab893355f3de939866ad8feb4d.jpg'>", "<img height='100px' src='http://cdn.ebaumsworld.com/mediaFiles/picture/604025/85712110.jpg'>",
             "<img height='100px'src='https://imgs.xkcd.com/comics/threesome.png'>", "<img height='100px' src='https://imgs.xkcd.com/comics/solar_spectrum.png'>", "<img height='100px' src='https://www.driftdigital.com.br/wp-content/uploads/2024/03/cyber.jpg'>",
             "<img height='100px'src='https://c.tenor.com/Wha6DadLpJYAAAAC/futurama-hypnotoad.gif'>", "<img height='100px'src='https://media1.tenor.com/m/mdthd1JgXFoAAAAC/thomas-train.gif'>",
@@ -139,57 +137,19 @@
             "<img height='100px'src='https://pranx.com/fake-virus/pay-with-kidneys.png'>", "<a href='https://pranx.com/maze/'>Get Lv.5</a>", "<a href='https://pranx.com/bios/'>Bios</a>",
             "Das do isch Legacycode", "Hets no Mate", " This website is using cookies to spy on the visitors secrets and personal life.", "Hets no Mate",
             "\"CYBER CYBER CYBER\" - Werner", "There is really no hard limit to how long these names can be and to be quite honest I'm rather curious to see how far we can go. Adolphus W. Green (1844–1917) started as the Principal of the Groton School in 1864. By 1865, he became second assistant librarian at the New York Mercantile Library; from 1867 to 1869, he was promoted to full librarian. From 1869 to 1873, he worked for Evarts, Southmayd & Choate, a law firm co-founded by William M. Evarts, Charles Ferdinand Southmayd and Joseph Hodges Choate. He was admitted to the New York State Bar Association in 1873. Anyway, how's your day been? ", "💩💩💩💩💩💩💩💩💩💩💩💩",
-            "Pwnis xD", "Mues das sii?", "De Sevi isch kapput, er isch grad go schloofe gange", "Wer hat mein Ladekabel gestohlen?", "Ich bin de Balkon --Schnirz", "Hat jemand mein Ladekabel gesehen?", "Ich habe gerade mein Passwort vergessen...",
-            "Lass uns das mal mit dem Feuerl&ouml;scher versuchen...", "Ich han e Idee! Wie wärs miteme Elektroshocker?", " mit Rohlingen isses doch wie mit Gummis: wennst welche brauchst, haste keine mehr, weil du deine letzten für irgend nen sinnlosen scheiss verschwendet hast...", "Ich verstehe die Jugend von heutzutage nicht mehr...Naja, mein Türkisch ist auch nicht grade das beste.",
+            "Pwnis xD", "Mues das sii?", "De Sevi isch kapput, er isch grad go schloofe gange", "Wer hat mein Ladekabel gestohlen?", "Ich bin de Balkon --Schnirz", "Hat jemand mein Ladekabel gesehen?", "Ich habe gerade mein Passwort vergessen...", "Lass uns das mal mit dem Feuerl&ouml;scher versuchen...", "Ich han e Idee! Wie wärs miteme Elektroshocker?", " mit Rohlingen isses doch wie mit Gummis: wennst welche brauchst, haste keine mehr, weil du deine letzten für irgend nen sinnlosen scheiss verschwendet hast...", "Ich verstehe die Jugend von heutzutage nicht mehr...Naja, mein Türkisch ist auch nicht grade das beste.",
             "Ich betrink mich einfach mit Tee, dann hab ich am Ende 2,5 Kamille xD", "Kennst du das Gefühl wenn du in einen Raum gegangen bist aber in genau der Sekunde vergisst warum du in den Raum gegangen bist und gehst wieder raus? Das	ist der Sims Spieler der dich kontrolliert und grade die Aktion unterbrochen hat!",
             "Vorurteile sind so sinnvoll wie Fundbüros in Polen", "wird das jetzt sone mein penis ist länger diskussion? -> Ich hab ne kamera und ein lineal hier!", "Warum haben alle gutausehenden Mädels den Nachnamen JPG.", "alter,du nerd.....geh mal nach google streetview und guck wie dein haus von draussen aussieht....",
             "ruum mol din platz uf %Name% gseet jo schrecklich uus", "alter, handyspiele sind solche zeitfresser...ich komm kaum noch an die xbox!", "lol, geschter simmer vorem odw am rauche gsi (3 nachts), polizeiauto chunt wege lärm oder so, polizisten stiiged us und fröged noch uuswiis, und der Severin so: tschuldigung, dörfed sie da einfach so parken? xDD",
             "dann hörte ich meine mum an der tür und ich bekam richtig panik, aber zum glück schaffte ich es mit alt+tab zum porno und zog meine boxershorts aus ehe sie sehen konnte, dass ich auf der microsoft website war", "alles unter 14 schützt das gesetzt alles über 40 die natur , dazwischen ist zum abschuss freigegeben", "Das Online-Wörterbuch von Pons kann zwar kein Finnisch übersetzen aber dafür Elbisch. Man muss ja Prioritäten setzen!",
             "Ich muss weg. Da isn typ neben mir, der mir beim tippen zusieht, was langsam anfängt zu nerven. Ja typ neben mir, ich mein dich.", "Als ich jung war hieß das HappyMeal noch Reichsjugendbeutel!", "Ich habe gerade Buchstabennudeln auf meine Tastatur geklebt. Ich bin jetzt also Erfinder der Pastatur :)",
             "alles was mir gefällt kostet entweder Zu viel oder schreibt mir Bei whatsapp nicht zurück :(", "Ich leide grade gleichzeitig an Gedächtnisverlust und einem Deja Vu. Ich habe das gefühl, dass ich das, was mir grad nicht einfällt, schonmal vergessen habe...",
-
-            "100 fun continues", "102 processing the joke",
-            "200 fun ok",
-            "301 fun is over there",
-            "403 fun not allowed",
-            "404 funny text not found",
-            "418 I am a <img height='100px'src='https://bribes.org/perl/ateapot.gif'>",
-            "Trackmania chasch be Chip abelade",
-            "Was macht ein Pirat am Computer? Er drückt die Enter-Taste!",
-            "Wenn alles in deine Richtung kommt, bist du auf der falschen Spur.",
-            "Wir wollen kein Volk sein",
-            "You wouldnt download a car!",
-            "%Name%'s Muetter",
-            "Es het kei Cola meh!",
-            "Dieses System ist Sicher!",
-            "Mhhh Natel",
-            "Nom Nom Nom",
-            "Coca Cola Espuma",
-            "Beep Beep im a Sheep, i said Beep Beep im a Sheep!",
-            "Cha das explodiere?",
-            "SMASHPLOSION",
-            "Isch de Laser frei?",
-            "%Name% was slain by Myros",
-            "Creeper, Awww Man",
-            "de Migro het zue/offe ",
-            "Dini Mueter het eh eigeni Postleitzahl",
-            "Incognito Mode ist Lebensretter",
-            "<img height="100px" src="192.168.42.10/Launcher/Memes/meme1.png">",
-            "Nei",
-            "%Name% macht 90% der Umweltverschmutzung aus",
-            "Für Fortnite",
-            "Als Gott Gehirne verteilt hatte, war %Name% wohl gerade an der Pommesbude.",
-            "%Name% isch churz Milch holä",
-            "Hello and Again, Welcome to the %Name% Science Computer-aided Enrichtment Center!",
-            "Mir geht es so schlecht ohne dich. Es ist schon fast so, als wäre %Name% hier.",
-            "mir hacked dClientis",
-            "mir hacked DRaiffeise",
-            "mir hacked DPostFinance",
-            "mir hacked Dini Mueter",
-            "mir hacked DWelt",
-            "mir hacked DWelt (aka. Dini Mueter)",
-            "WOW",
-            "gits eh rundi",
+            "100 fun continues", "102 processing the joke", "200 fun ok", "301 fun is over there", "403 fun not allowed", "404 funny text not found", "418 I am a <img height='100px'src='https://bribes.org/perl/ateapot.gif'>", "Trackmania chasch be Chip abelade",
+            "Was macht ein Pirat am Computer? Er drückt die Enter-Taste!", "Wenn alles in deine Richtung kommt, bist du auf der falschen Spur.", "Wir wollen kein Volk sein", "You wouldnt download a car!", "Uf dere Autobahn hets 1000 Geisterfahrer", "%Name%'s Muetter", "Es het kei Cola meh!",
+            "Dieses System ist Sicher!", "Mhhh Natel", "Nom Nom Nom", "Coca Cola Espuma", "Beep Beep im a Sheep, i said Beep Beep im a Sheep!", "Cha das explodiere?", "SMASHPLOSION", "Isch de Laser frei?", "%Name% was slain by Myros", "Creeper, Awww Man",
+            "de Migro het zue/offe ", "Dini Mueter het eh eigeni Postleitzahl", "Incognito Mode ist Lebensretter", "<img height='100px' src='192.168.42.10/Launcher/Memes/meme1.png'>", "Nei",
+            "%Name% macht 90% der Umweltverschmutzung aus", "Für Fortnite", "Als Gott Gehirne verteilt hatte, war %Name% wohl gerade an der Pommesbude.", "%Name% isch churz Milch holä", "Hello and Again, Welcome to the %Name% Science Computer-aided Enrichtment Center!",
+            "Mir geht es so schlecht ohne dich. Es ist schon fast so, als wäre %Name% hier.", "mir hacked dClientis", "mir hacked dRaiffeise", "mir hacked DPostFinance", "mir hacked Dini Mueter", "mir hacked DWelt", "mir hacked DWelt (aka. Dini Mueter)", "WOW", "gits eh rundi",
 
         ]
         let el = document.getElementById("funnyText")
