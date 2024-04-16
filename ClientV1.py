@@ -43,10 +43,10 @@ def index():
     return html_file.read()
 
 
-@app.route('/favicon.ico')  # TODO fix
+@app.route('/*.png')  # TODO fix (I hope it fixed)
 def favicon():
-    print(os.path.join(app.root_path, 'favicon.ico'))
-    return send_from_directory(os.path.join(app.root_path, ''), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+    print(os.path.join(app.root_path, '*.png'))
+    return send_from_directory(os.path.join(app.root_path, ''), '/*png', mimetype='image/vnd.microsoft.icon')
 
 
 # @app.route('/gameIsLocal/<gameName>', methods=['GET'])

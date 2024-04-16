@@ -4,3 +4,5 @@ fileslocalside = "~\odwlauncher\games"
 # Checking the Server JSON Files
 
 # Checking the Local JSON Files
+
+# Compare files
