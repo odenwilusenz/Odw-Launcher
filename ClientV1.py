@@ -25,11 +25,7 @@ def ftpGetFileContent(folder, file):
     return file_content 
 
 def LocalGetItemsInFolder(folder):
-    ftp = FTP("192.168.42.10")  # Connect to FTP server
-    ftp.login("anyuser", "Resuyna2")
-    ftp.cwd(str(folder))
-    directory_contents = ftp.nlst()
-    ftp.quit()
+    os.
     return directory_contents
 
 items = ftpGetItemsInFolder("Launcher/Pictures")
